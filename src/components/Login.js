@@ -3,14 +3,13 @@ import Button from 'react-bootstrap/Button';
 import { Link, Navigate, useNavigate, useNAvigate} from "react-router-dom"
 import Form from 'react-bootstrap/Form';
 import { auth } from '../firebase';
-import { createUserWithEmailAndPassword , updateProfile, UserProfile} from 'firebase/auth';
+import { signInWithEmailAndPassword, UserProfile} from 'firebase/auth';
 import Container from 'react-bootstrap/Container';
 function Login() {
 
   const [validated, setValidated] = useState(false);
   const  navigate  = useNavigate();
     const [values,setValues] = useState({
-          name:"",
           email:"",
           password:"",
     })
@@ -24,13 +23,10 @@ function Login() {
     }
     setValidated(true);
 
-        createUserWithEmailAndPassword(auth,values.email,values.password)
+        signInWithEmailAndPassword(auth,values.email,values.password)
         .then(async(res)=>{
           const user =  res.user
-          console.log(res)
-          await updateProfile(user,{
-            displayName:values.name,
-          });
+         
           navigate('/', {
             userName: values.name,
           });
@@ -57,7 +53,7 @@ function Login() {
       <Form.Control type="password" placeholder="Password" onChange={(e)=>setValues((prev)=>({...prev,password:e.target.value}))}/>
     </Form.Group>
     <Form.Group className="mb-3" controlId="formBasicCheckbox">
-    <h6>New User!</h6><Button variant="link">Sign Up</Button>
+    <h6>New User!</h6><Link to="/signup">Sign Up</Link>
     </Form.Group>
     <Button  type="submit">
       Submit

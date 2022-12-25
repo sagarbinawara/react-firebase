@@ -80,7 +80,7 @@ export default function Signup() {
           </Form.Control.Feedback>
     </Form.Group>
     <Form.Group className="mb-3" controlId="formBasicCheckbox">
-      <h6>Already have  an account!</h6><Button variant="link">Login</Button>
+      <h6>Already have  an account!</h6><Link to="/login">Log In Up</Link>
     </Form.Group>
     <Button type="submit">
       Submit
